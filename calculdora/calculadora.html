@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora pppppp</title>
+</head>
+<body>
+
+    <input type="number" id="num1" placeholder="Num 1">
+    
+    <select id="operacion">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+
+    <input type="number" id="num2" placeholder="Num 2">
+
+    <button id="btnCalcular">Resultado</button>
+
+
+    <p>El Resultado es: <span id="resultado"></span></p>
+
+    <h3>Resultados anteriores:</h3>
+    <ul id="historial"></ul>
+
+    <script>
+        const inputNum1 = document.getElementById('num1');
+        const selectOperacion = document.getElementById('operacion');
+        const inputNum2 = document.getElementById('num2');
+        const btnCalcular = document.getElementById('btnCalcular');
+        const spanResultado = document.getElementById('resultado');
+        const listaHistorial = document.getElementById('historial');
+
+        btnCalcular.addEventListener('click', () => {
+            const val1 = parseFloat(inputNum1.value);
+            const val2 = parseFloat(inputNum2.value);
+            const operador = selectOperacion.value;
+
+            if (isNaN(val1) || isNaN(val2)) {
+                spanResultado.textContent = "Ingresa números válidos";
+                return;
+            }
+
+            let res = 0;
+
+            switch (operador) {
+                case '+':
+                    res = val1 + val2;
+                    break;
+                case '-':
+                    res = val1 - val2;
+                    break;
+                case '*':
+                    res = val1 * val2;
+                    break;
+                case '/':
+                    res = val2 !== 0 ? val1 / val2 : 'Error (div entre 0)';
+                    break;
+            }
+
+            spanResultado.textContent = res;
+
+
+            const li = document.createElement('li');
+            li.textContent = `${val1} ${operador} ${val2} = ${res}`;
+            listaHistorial.appendChild(li);
+        });
+    </script>
+
+</body>
+</html>
