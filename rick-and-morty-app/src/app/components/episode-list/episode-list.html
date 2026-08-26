@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Episodios de Rick y Morty</h2>
+  <div class="grid">
+    <a 
+      *ngFor="let ep of episodes" 
+      [href]="'https://www.youtube.com/results?search_query=Rick+and+Morty+' + ep.name" 
+      target="_blank" 
+      class="card-link">
+      <div class="card">
+        <span class="badge">{{ ep.episode }}</span>
+        <h3>{{ ep.name }}</h3>
+        <p><strong>Estreno:</strong> {{ ep.air_date }}</p>
+        <span class="yt-label">▶ Ver en YouTube</span>
+      </div>
+    </a>
+  </div>
+</div>
