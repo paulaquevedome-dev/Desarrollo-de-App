@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Iniciar Sesión - Uber App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-card>
+      <ion-card-content>
+        <h2>Bienvenido</h2>
+        <p>Ingresa tus datos para continuar</p>
+
+        <ion-text color="danger" *ngIf="errorMessage">
+          <p class="error-text">{{ errorMessage }}</p>
+        </ion-text>
+
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input 
+            label="Correo o Teléfono" 
+            labelPlacement="stacked" 
+            [(ngModel)]="credentials.login" 
+            placeholder="ejemplo@correo.com">
+          </ion-input>
+        </ion-item>
+
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input 
+            type="password" 
+            label="Contraseña" 
+            labelPlacement="stacked" 
+            [(ngModel)]="credentials.password" 
+            placeholder="********">
+          </ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="ion-margin-top" color="dark" [disabled]="isLoading" (click)="onLogin()">
+          {{ isLoading ? 'Entrando...' : 'Entrar' }}
+        </ion-button>
+
+        <!-- Botón para ir al registro -->
+        <ion-button expand="block" fill="outline" class="ion-margin-top" color="dark" routerLink="/auth/register">
+          Crear una cuenta nueva
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

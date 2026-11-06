@@ -1,0 +1,115 @@
+<ion-header class="detail-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/" aria-label="Volver a la Pokédex">
+        <ion-icon name="arrow-back" slot="start"></ion-icon>
+        Volver
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pokédex</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="detail-content">
+  <main class="detail-page">
+    <ng-container *ngIf="pokemon as p; else loadingTemplate">
+      <section class="pokemon-hero" aria-label="Información principal del Pokémon">
+        <div class="pokemon-art">
+          <img
+            [src]="captureImageUrl || p.sprites?.other?.['official-artwork']?.front_default || p.sprites?.front_default"
+            [alt]="p.name | titlecase"
+            (error)="useArtworkFallback()"
+          />
+        </div>
+
+        <div class="pokemon-heading">
+          <span class="pokemon-number">N.º {{ p.id | number:'3.0-0' }}</span>
+          <h1>{{ p.name | titlecase }}</h1>
+          <div class="type-list" aria-label="Tipos">
+            <span
+              *ngFor="let item of p.types"
+              class="type-badge"
+              [ngClass]="'type-' + item.type.name"
+            >
+              {{ typeLabel(item.type.name) }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-card description-card">
+        <h2>Descripción</h2>
+        <p>{{ description }}</p>
+      </section>
+
+      <section class="quick-facts" aria-label="Datos principales">
+        <article class="detail-card health-card">
+          <div class="fact-heading">
+            <span class="fact-icon health-icon" aria-hidden="true">♥</span>
+            <h2>Salud</h2>
+          </div>
+          <strong class="health-value">{{ health }}</strong>
+          <div
+            class="health-track"
+            role="progressbar"
+            aria-label="Puntos de salud base"
+            [attr.aria-valuenow]="health"
+            aria-valuemin="0"
+            aria-valuemax="255"
+          >
+            <span [style.width.%]="statWidth(health)"></span>
+          </div>
+          <p>PS base</p>
+        </article>
+
+        <article class="detail-card measure-card">
+          <div class="fact-heading">
+            <span class="fact-icon measure-icon" aria-hidden="true">↕</span>
+            <h2>Medidas</h2>
+          </div>
+          <div class="measure-values">
+            <div>
+              <span>Altura</span>
+              <strong>{{ p.height / 10 | number:'1.1-1' }} m</strong>
+            </div>
+            <div>
+              <span>Peso</span>
+              <strong>{{ p.weight / 10 | number:'1.1-1' }} kg</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="detail-card stats-card">
+        <div class="section-heading">
+          <span class="fact-icon stats-icon" aria-hidden="true">▥</span>
+          <h2>Estadísticas</h2>
+        </div>
+        <div class="stats-list">
+          <div class="stat-row" *ngFor="let stat of combatStats">
+            <span class="stat-label">{{ statLabel(stat.stat.name) }}</span>
+            <strong class="stat-value">{{ stat.base_stat }}</strong>
+            <div class="stat-track">
+              <span [style.width.%]="statWidth(stat.base_stat)"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+  </main>
+
+  <ng-template #loadingTemplate>
+    <section class="status-panel" *ngIf="isLoading; else errorTemplate" role="status">
+      <ion-spinner name="crescent" color="danger"></ion-spinner>
+      <p>Cargando información del Pokémon...</p>
+    </section>
+  </ng-template>
+
+  <ng-template #errorTemplate>
+    <section class="status-panel error-panel" role="alert">
+      <h2>No se pudo cargar</h2>
+      <p>{{ loadError }}</p>
+      <ion-button color="danger" (click)="retryLoading()">Reintentar</ion-button>
+    </section>
+  </ng-template>
+</ion-content>

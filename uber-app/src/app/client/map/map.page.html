@@ -1,0 +1,28 @@
+<ion-content [scrollY]="false">
+  <div class="map-container-wrapper">
+    <div #mapContainer id="map"></div>
+    
+    <!-- Botón GPS flotante superior -->
+    <ion-button fill="solid" shape="round" class="recenter-btn" (click)="getCurrentLocation()">
+      GPS
+    </ion-button>
+  </div>
+
+  <!-- Tarjeta flotante inferior estilo Uber -->
+  <div class="request-card-container">
+    <ion-card class="request-card">
+      <ion-card-content>
+        <h3>¿A dónde vamos?</h3>
+        <p>Tu ubicación actual ha sido detectada con éxito.</p>
+        
+        <ion-button expand="block" color="dark" [disabled]="isSearchingRide" (click)="requestRide()">
+          {{ isSearchingRide ? 'Buscando conductor...' : 'Confirmar y Pedir Viaje' }}
+        </ion-button>
+        
+        <ion-button expand="block" fill="clear" color="medium" size="small" class="ion-margin-top" (click)="logout()">
+          Cerrar Sesión
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true" class="poke-home-bg">
+  
+  <!-- Encabezado Estilo Pokébola -->
+  <div class="header-banner">
+    <div class="user-greeting">Bienvenido a la Pokédex</div>
+    <div class="scanner-card" (click)="scanPokemonCamera()">
+      <div class="pokeball-icon-container">
+        <div class="pokeball-top"></div>
+        <div class="pokeball-middle">
+          <div class="pokeball-button"></div>
+        </div>
+        <div class="pokeball-bottom"></div>
+      </div>
+      <h1 class="scan-title">CAPTURAR</h1>
+    </div>
+
+    <div *ngIf="isRecognizing" role="status" style="padding: 16px; text-align: center;">
+      <ion-spinner name="crescent" color="danger"></ion-spinner>
+      <p>{{ recognitionStatus }}</p>
+      <p>La descarga del modelo ocupa unos 29 MB. Tu foto se analiza en este navegador y no se envía a ningún servicio.</p>
+    </div>
+
+    <div *ngIf="recognitionError" role="alert" style="padding: 16px; text-align: center; color: #b00020;">
+      <p>No se pudo reconocer la foto: {{ recognitionError }}</p>
+      <p>Intenta tomar otra foto con el Pokémon centrado y enfocado.</p>
+    </div>
+
+    <!-- Botón alternativo para galería -->
+    <ion-button fill="clear" color="light" class="gallery-btn" (click)="pickFromGallery()">
+      <ion-icon name="image-outline" slot="start"></ion-icon>
+      Elegir foto de la galería
+    </ion-button>
+  </div>
+
+  <!-- Pestañas de Navegación: Todos / Mis Capturas -->
+  <div class="tabs-container" style="display: flex; justify-content: center; gap: 10px; margin: 15px 0;">
+    <ion-button [color]="activeTab === 'all' ? 'danger' : 'medium'" (click)="activeTab = 'all'">
+      Todos ({{ allPokemon.length }})
+    </ion-button>
+    <ion-button [color]="activeTab === 'scans' ? 'danger' : 'medium'" (click)="activeTab = 'scans'">
+      Mis Capturas ({{ myScans.length }})
+    </ion-button>
+  </div>
+
+  <!-- Barra de Búsqueda -->
+  <div class="search-section" style="padding: 0 16px; margin-bottom: 15px;">
+    <ion-searchbar 
+      [value]="searchTerm"
+      (ionInput)="searchTerm = $event.detail.value || ''; filterPokemon()" 
+      placeholder="Buscar por nombre o número"
+      mode="ios"
+      animated="true">
+    </ion-searchbar>
+  </div>
+
+  <div *ngIf="loadError" style="text-align: center; padding: 16px; color: #b00020;">
+    <p>{{ loadError }}</p>
+    <ion-button color="danger" (click)="loadFirstGen()">Reintentar</ion-button>
+  </div>
+
+  <!-- Vista 1: Todos los Pokémon -->
+  <div class="pokemon-grid" *ngIf="activeTab === 'all'">
+    <div *ngFor="let p of filteredPokemon" class="pokemon-card" (click)="viewDetails(p.id)">
+      <span class="pokemon-card-id">#{{ p.id | number:'3.0-0' }}</span>
+      <img [src]="p.image" [alt]="p.name" loading="lazy" />
+      <h3>{{ p.name | titlecase }}</h3>
+    </div>
+  </div>
+
+  <!-- Vista 2: Mis Pokémon Capturados -->
+  <div class="pokemon-grid" *ngIf="activeTab === 'scans'">
+    <div *ngIf="myScans.length === 0" style="text-align: center; width: 100%; padding: 30px; color: #666;">
+      <p>Aún no has capturado ningún Pokémon.</p>
+    </div>
+    <div *ngFor="let p of filteredScans" class="pokemon-card" (click)="viewDetails(p.id)">
+      <span class="pokemon-card-id">#{{ p.id | number:'3.0-0' }}</span>
+      <img [src]="p.image" [alt]="p.name" loading="lazy" />
+      <h3>{{ p.name | titlecase }}</h3>
+    </div>
+  </div>
+
+</ion-content>

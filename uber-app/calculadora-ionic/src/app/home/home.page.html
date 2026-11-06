@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Calculadora Ionic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Número 1</ion-label>
+    <ion-input type="number" placeholder="Num 1" (ionInput)="onNum1Change($event)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Operación</ion-label>
+    <ion-select value="+" (ionChange)="onOperacionChange($event)">
+      <ion-select-option value="+">+</ion-select-option>
+      <ion-select-option value="-">-</ion-select-option>
+      <ion-select-option value="*">*</ion-select-option>
+      <ion-select-option value="/">/</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Número 2</ion-label>
+    <ion-input type="number" placeholder="Num 2" (ionInput)="onNum2Change($event)"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="calcular()">
+    Resultado
+  </ion-button>
+
+  <ion-card *ngIf="resultado" class="ion-margin-top">
+    <ion-card-content>
+      <h2>El Resultado es: <strong>{{ resultado }}</strong></h2>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="historial.length > 0" class="ion-margin-top">
+    <h3>Resultados anteriores:</h3>
+    <ion-list>
+      <ion-item *ngFor="let item of historial">
+        <ion-label>{{ item }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

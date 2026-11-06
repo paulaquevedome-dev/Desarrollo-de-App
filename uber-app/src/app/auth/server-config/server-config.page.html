@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Configurar Servidor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="container">
+    <ion-card>
+      <ion-card-content>
+        <h2>IP de la API de Laravel</h2>
+        <p>Ingresa la IP actual que te dio el profesor (ejemplo: http://20.20.1.235:8000/api)</p>
+
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input 
+            label="URL Base de la API" 
+            labelPlacement="stacked" 
+            [(ngModel)]="currentIpUrl" 
+            placeholder="http://IP:PUERTO/api">
+          </ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="ion-margin-top" color="primary" (click)="saveServerUrl()">
+          Guardar y Continuar
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

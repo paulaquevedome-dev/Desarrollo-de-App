@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora TypeScript</title>
+<style>
+ 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none; 
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+        appearance: textfield; 
+    }
+</style>
+</head>
+<body>
+
+    <input type="number" id="num1" placeholder="Num 1">
+    
+    <select id="operacion">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+
+    <input type="number" id="num2" placeholder="Num 2">
+
+    <button id="btnCalcular">Resultado</button>
+
+    <p>El Resultado es: <span id="resultado"></span></p>
+
+    <h3>Resultados anteriores:</h3>
+    <ul id="historial"></ul>
+
+    <script src="cal.js"></script>
+</body>
+</html>
