@@ -1,7 +1,0 @@
-{
-  "name": "pokeScan",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
