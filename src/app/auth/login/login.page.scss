@@ -1,0 +1,25 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+
+  h2 {
+    font-weight: bold;
+    color: var(--ion-color-dark);
+    margin-bottom: 5px;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+  }
+
+  .error-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+}

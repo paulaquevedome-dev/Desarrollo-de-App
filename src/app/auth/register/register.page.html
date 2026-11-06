@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Registro - Uber App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="register-container">
+    <ion-card>
+      <ion-card-content>
+        <h2>Crear Cuenta</h2>
+        <p>Regístrate como pasajero o conductor</p>
+
+        <ion-text color="danger" *ngIf="errorMessage">
+          <p class="error-text">{{ errorMessage }}</p>
+        </ion-text>
+
+        <!-- Selector de Rol (Cliente o Conductor) -->
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-select label="Tipo de Usuario" labelPlacement="stacked" [(ngModel)]="formData.role">
+            <ion-select-option value="client">Pasajero (Cliente)</ion-select-option>
+            <ion-select-option value="driver">Conductor</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Datos Básicos -->
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input label="Nombre Completo" labelPlacement="stacked" [(ngModel)]="formData.name" placeholder="Tu nombre"></ion-input>
+        </ion-item>
+
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input type="email" label="Correo Electrónico" labelPlacement="stacked" [(ngModel)]="formData.email" placeholder="correo@ejemplo.com"></ion-input>
+        </ion-item>
+
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input type="tel" label="Teléfono" labelPlacement="stacked" [(ngModel)]="formData.phone" placeholder="3001234567"></ion-input>
+        </ion-item>
+
+        <ion-item fill="outline" class="ion-margin-top">
+          <ion-input type="password" label="Contraseña" labelPlacement="stacked" [(ngModel)]="formData.password" placeholder="********"></ion-input>
+        </ion-item>
+
+        <!-- Campos Extra si es Conductor -->
+        <div *ngIf="formData.role === 'driver'" class="driver-fields">
+          <ion-text color="medium"><h3>Datos del Vehículo y Licencia</h3></ion-text>
+          
+          <ion-item fill="outline" class="ion-margin-top">
+            <ion-input label="Número de Licencia" labelPlacement="stacked" [(ngModel)]="formData.license_number"></ion-input>
+          </ion-item>
+
+          <ion-item fill="outline" class="ion-margin-top">
+            <ion-input label="Placa" labelPlacement="stacked" [(ngModel)]="formData.plate" placeholder="ABC-123"></ion-input>
+          </ion-item>
+
+          <ion-item fill="outline" class="ion-margin-top">
+            <ion-input label="Marca" labelPlacement="stacked" [(ngModel)]="formData.brand" placeholder="Chevrolet"></ion-input>
+          </ion-item>
+
+          <ion-item fill="outline" class="ion-margin-top">
+            <ion-input label="Modelo" labelPlacement="stacked" [(ngModel)]="formData.model" placeholder="Spark"></ion-input>
+          </ion-item>
+
+          <ion-item fill="outline" class="ion-margin-top">
+            <ion-input type="number" label="Año" labelPlacement="stacked" [(ngModel)]="formData.year" placeholder="2020"></ion-input>
+          </ion-item>
+
+          <ion-item fill="outline" class="ion-margin-top">
+            <ion-input label="Color" labelPlacement="stacked" [(ngModel)]="formData.color" placeholder="Negro"></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button expand="block" class="ion-margin-top" color="dark" [disabled]="isLoading" (click)="onRegister()">
+          {{ isLoading ? 'Registrando...' : 'Registrarse' }}
+        </ion-button>
+
+        <ion-button expand="block" fill="clear" color="medium" routerLink="/login">
+          ¿Ya tienes cuenta? Inicia sesión
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

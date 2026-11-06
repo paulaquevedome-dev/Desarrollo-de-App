@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+
+  h2 {
+    font-weight: bold;
+    color: var(--ion-color-dark);
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+  }
+}
